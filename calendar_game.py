@@ -57,8 +57,11 @@ def gen_combinations(variant_list):
                             for o in range(len(variant_list[6])):
                                 for p in range(len(variant_list[7])):
                                     for q in range(len(variant_list[8])):
-                                        current = [variant_list[0][i] + variant_list[1][j] + variant_list[2][k] + variant_list[3][l] +
-                                                   variant_list[4][m] + variant_list[5][n] + variant_list[6][o] + variant_list[7][p] + variant_list[8][q]]
+                                        current = variant_list[0][i] + variant_list[1][j] + variant_list[2][k] + variant_list[3][l] + \
+                                            variant_list[4][m] + variant_list[5][n] + \
+                                            variant_list[6][o] + \
+                                            variant_list[7][p] + \
+                                            variant_list[8][q]
                                         output.append(
                                             [current, [i, j, k, l, m, n, o, p, q]])
     return output
@@ -68,15 +71,15 @@ def gen_combinations(variant_list):
 
 def check_matrix(matrix):
     check = True
-    # check if first two row has only one zero
-    if numpy.count_nonzero(matrix[0]) != 5 or numpy.count_nonzero(matrix[1]) != 5:
+    # check if first two row are only one zeros and other are only one ones
+    if (numpy.count_nonzero(matrix[0]) != 5 or numpy.count_nonzero(matrix[1]) != 5) and numpy.sum(matrix[0]) != 5 and numpy.sum(matrix[1]) != 5:
         check = False
-    # check if the 3rd to 7th row has only one zero
+    # check if the 3rd to 7th row has only one zero and other are only one ones
     for i in range(2, 7):
-        if numpy.count_nonzero(matrix[i]) != 4:
+        if numpy.count_nonzero(matrix[i]) != 5 and numpy.sum(matrix[i]) != 5:
             check = False
-    # check if the 8th to 9th row has only one zero and zero is not at (7,1) (7,2) (8, 0) (8, 1)
-    if numpy.count_nonzero(matrix[7]) != 5 or numpy.count_nonzero(matrix[8]) != 5:
+    # check if the 8th to 9th row (has only one zero and zero is not at (7,1) (7,2) (8, 0) (8, 1)) and other are only one ones
+    if (numpy.count_nonzero(matrix[7]) != 5 or numpy.count_nonzero(matrix[8]) != 5) and numpy.sum(matrix[7]) != 5 and numpy.sum(matrix[8]) != 5:
         check = False
     if matrix[7][1] == 0 or matrix[7][2] == 0 or matrix[8][0] == 0 or matrix[8][1] == 0:
         check = False
